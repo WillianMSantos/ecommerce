@@ -17,7 +17,7 @@ public class ProductController {
 
     private ProductService productService;
 
-    @PostMapping
+    @PostMapping("register-product")
     @ResponseStatus(HttpStatus.CREATED)
     public Long registerProduct(@RequestBody ProductDTO productDTO) {
 
@@ -25,8 +25,22 @@ public class ProductController {
        return product.getId();
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable Long id) {
+
+        productService.deleteProduct(id);
+    }
+
     @GetMapping("/list-products")
     public List<ProductDTO> listAll() {
+
       return productService.listAllProducts();
+    }
+
+    @GetMapping("/{id}/product")
+    public ProductDTO findProduct(@PathVariable Long id) {
+
+        return productService.findProduct(id);
     }
 }
